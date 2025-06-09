@@ -59,7 +59,7 @@ export default function Index() {
     source={require('../assets/images/hero-bg.png')}
     style={styles.background}
     >
-      <View style={{padding: 70, height: '100vh'}}>
+      <View style={{padding: 70, flex: 1}}>
         <Image
         source={require('../assets/images/logo.png')}
         style={{alignSelf: 'center'}}
@@ -78,7 +78,7 @@ export default function Index() {
           />
         </View>
         <Text style={[styles.h1, {marginTop: 30}]}>All Movies</Text>
-        <ScrollView style={{width: '100vh'}}>
+        <ScrollView style={{flex: 1, width: '100%', flexDirection: "row", flexWrap: 'wrap'}}>
           {isLoading ? (
             <Spinner></Spinner>
           ): movieList ? movieList.map((movie) => (
