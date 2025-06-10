@@ -1,8 +1,8 @@
-import Spinner from "@/components/Spinner";
+import Card from "@/components/Card";
 import { VITE_TMDB_API_KEY } from "@/config";
 import { Movie } from "@/types/movie";
 import { useEffect, useState } from "react";
-import { Image, ImageBackground, ScrollView, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, ImageBackground, Text, TextInput, View } from "react-native";
 import styles from '../style/shared';
 
 const API_KEY = VITE_TMDB_API_KEY;
@@ -79,12 +79,21 @@ export default function Index() {
           </View>
         </View>
         <Text style={[styles.h1, {marginTop: 10, marginLeft: 30}]}>All Movies</Text>
-        <View>
+        <View style={{flex: 1}}>
             {isLoading ? (
-              <Spinner></Spinner>
-            ): (
-              <ScrollView></ScrollView>
-            )}
+              <ActivityIndicator
+              style={{marginTop: 40}} 
+              size='large' 
+              color={'blue'}/>
+            ): movieList ? (
+              <FlatList
+              data={movieList}
+              renderItem={({item}) => <Card movie={item} key={item.id}></Card>}
+              keyExtractor={item => String(item.id)}
+              numColumns={2}
+              style={{paddingHorizontal: 70, paddingTop: 30}}
+              />
+            ): 'N/A'}
         </View>
       </View>
     </ImageBackground>

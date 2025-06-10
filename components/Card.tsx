@@ -8,9 +8,8 @@ type MovieCard = {
 
 const Card = ({movie:{title, vote_average, original_language, release_date, poster_path,}}: MovieCard) => {
   return (
-    <View style={{flex: 1, flexDirection: 'column', gap: 5, width: '50%'}}>
+    <View style={{flex: 1, flexDirection: 'column', gap: 5}}>
         <View
-        style={{height: 151, width: 104}}
         >
             <Image
             source={{uri:`https://image.tmdb.org/t/p/w500/${poster_path}`}}
@@ -26,7 +25,7 @@ const Card = ({movie:{title, vote_average, original_language, release_date, post
         >
             <Image source={require('../assets/images/star.svg')}></Image>
             <Text
-            style={{color: 'gray'}}
+            style={{fontWeight: 'bold', color: 'white'}}
             >{vote_average.toFixed(1)}</Text>
         </View>
     </View>
