@@ -15,7 +15,7 @@ export default StyleSheet.create({
         marginTop: 20,
         display: 'flex',
             width: 361,
-        height: 44,
+        height: 60,
         alignItems: 'center',
         justifyContent: 'center'
     },

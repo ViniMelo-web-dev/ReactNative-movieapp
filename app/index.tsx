@@ -3,11 +3,12 @@ import { VITE_TMDB_API_KEY } from "@/config";
 import { Movie } from "@/types/movie";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, ImageBackground, Text, TextInput, View } from "react-native";
+import { useDebounce } from 'react-use';
 import styles from '../style/shared';
 
 const API_KEY = VITE_TMDB_API_KEY;
 const API_BASE_URL = 'https://api.themoviedb.org/3';
-export const API_OPTIONS = {
+const API_OPTIONS = {
   method: 'GET',
   headers: {
     accept: 'application/json',
@@ -21,13 +22,15 @@ export default function Index() {
   const [movieList, setMovieList] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
+  useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
-
-  const fetchMovies = async() => {
+  const fetchMovies = async(query = '') => {
     setIsLoading(true);
     try{
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = query ? `${API_BASE_URL}/discover/movie?query=${encodeURI(query)}` :
+      `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
       const response = await fetch(endpoint, API_OPTIONS);
   
       if(!response.ok){
@@ -40,7 +43,6 @@ export default function Index() {
       }
 
       setMovieList(data.results || []);
-      console.log(data);
 
     } catch(error){
       setErrorMessage((error as Error).message || 'Error fetching data');
@@ -60,19 +62,19 @@ export default function Index() {
     style={styles.background}
     >
       <View style={{flex: 1}}>
-        <View style={{paddingHorizontal: 10, paddingVertical: 40}}>
+        <View style={{paddingHorizontal: 10, paddingTop: 40, paddingBottom: 30}}>
           <Image
           source={require('../assets/images/logo.png')}
           style={{alignSelf: 'center'}}
           />
           <View style={styles.input}>
             <Image
-            source={require('../assets/images/search.svg')}
-            style={{position: 'absolute', left:15}}
+            source={require('../assets/images/search.png')}
+            style={{position: 'absolute', left:20,}}
             />
             <TextInput
             style={{color: '#A8B5DB', fontWeight: 400, fontSize: 14, paddingLeft: 40, 
-              width: '100%', height: '100%', outlineWidth: 0}}
+              width: '100%', height: '100%', outlineWidth: 0,}}
             onChangeText={setSearchTerm}
             value={searchTerm}
             placeholder="Search through 300+ movies online"

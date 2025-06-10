@@ -1,4 +1,13 @@
-import { API_OPTIONS } from "./app";
+import { VITE_TMDB_API_KEY } from "./config";
+
+const API_KEY = VITE_TMDB_API_KEY;
+const API_OPTIONS = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${API_KEY}`,
+  }
+};
 
 export const fetchGenre = async(id:number) => {
     try{
@@ -10,10 +19,11 @@ export const fetchGenre = async(id:number) => {
         }
 
         const data = await response.json();
+
         if(data.Response === 'False'){
             throw new Error('Failed to get data response');
         }
-        return data.genres;
+        return data.genres.slice(0, 2);
     }catch(error){
         console.log(error);
     }

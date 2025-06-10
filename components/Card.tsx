@@ -1,7 +1,7 @@
 import { fetchGenre } from '@/genre-fetch';
 import { Movie } from '@/types/movie';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 type MovieCard = {
     movie: Movie;
@@ -23,7 +23,7 @@ const Card = ({movie:{id, title, vote_average, original_language, release_date, 
         getGenre();
     }, [])
   return (
-    <View style={{flex: 1, flexDirection: 'column', gap: 5}}>
+    <View style={{flex: 1, flexDirection: 'column', gap: 3, marginBottom: 10, marginRight: 10}}>
         <View
         style={{width: 104, height: 151}}
         >
@@ -39,21 +39,39 @@ const Card = ({movie:{id, title, vote_average, original_language, release_date, 
         >{title ? title : 'N/A'}
         </Text>
         <View
-        style={{flexDirection: 'row', gap: 3, marginBottom: 10, 
+        style={{flexDirection: 'row', gap: 3, 
             alignItems: 'center', justifyContent:'flex-start',}}
         >
             <Image
             style={{height: 10, width: 10}} 
-            source={require('../assets/images/star.svg')}></Image>
+            source={require('../assets/images/star.png')}></Image>
             <Text
             style={{fontWeight: 'bold', color: 'white', fontSize: 10, lineHeight: 10}}
             >{vote_average.toFixed(1)}</Text>
         </View>
-       <FlatList
-        data={movieGenres}
-        renderItem={({item}) => <Text style={{color: 'gray'}}>{item ? item.name: 'N/A'}</Text>}
-        keyExtractor={item => String(item.id)}
-        />
+        <View style={{ flexDirection: 'row', flexWrap: 'nowrap', flex: 1, alignItems: 'center'}}>
+        {movieGenres ? movieGenres.map((item, index) => (
+        <React.Fragment key={item.id}>
+            <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{
+                color: 'gray',
+                fontSize: 10,
+                fontWeight: '700',
+                lineHeight: 14,
+                flexShrink: 1, 
+            }}
+            >
+            {item?.name ?? 'N/A'}
+            </Text>
+            {index < movieGenres.length - 1 && (
+            <Text style={{color: 'gray', marginHorizontal: 4}}>•</Text>
+            )}
+        </React.Fragment>
+        )) : 'N/A'}
+
+        </View>
     </View>
   )
 }
