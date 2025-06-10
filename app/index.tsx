@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import NavigationBar from "@/components/NavigationBar";
 import { VITE_TMDB_API_KEY } from "@/config";
 import { Movie } from "@/types/movie";
 import { useEffect, useState } from "react";
@@ -85,7 +86,7 @@ export default function Index() {
           </View>
         </View>
         <Text style={[styles.h1, {marginTop: 10, marginLeft: 30}]}>All Movies</Text>
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, marginBottom: 60}}>
             {isLoading ? (
               <ActivityIndicator
               style={{marginTop: 40}} 
@@ -106,6 +107,7 @@ export default function Index() {
               />
             ): 'N/A'}
         </View>
+        <NavigationBar></NavigationBar>
       </View>
     </ImageBackground>
   )

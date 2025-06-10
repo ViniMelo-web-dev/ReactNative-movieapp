@@ -25,5 +25,19 @@ export default StyleSheet.create({
         fontWeight: 700,
         fontSize: 20,
         lineHeight: 28,
+    },
+
+    buttonPressed: {
+        height: '100%', 
+        width: 125, 
+        backgroundColor: 'blue', 
+        borderRadius: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 30
+    },
+
+    buttonNormal: {
+        justifyContent: 'center', alignItems: 'center', padding: 30
     }
 })
