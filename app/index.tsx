@@ -7,7 +7,7 @@ import styles from '../style/shared';
 
 const API_KEY = VITE_TMDB_API_KEY;
 const API_BASE_URL = 'https://api.themoviedb.org/3';
-const API_OPTIONS = {
+export const API_OPTIONS = {
   method: 'GET',
   headers: {
     accept: 'application/json',
@@ -40,6 +40,7 @@ export default function Index() {
       }
 
       setMovieList(data.results || []);
+      console.log(data);
 
     } catch(error){
       setErrorMessage((error as Error).message || 'Error fetching data');
@@ -90,8 +91,8 @@ export default function Index() {
               data={movieList}
               renderItem={({item}) => <Card movie={item} key={item.id}></Card>}
               keyExtractor={item => String(item.id)}
-              numColumns={2}
-              style={{paddingHorizontal: 70, paddingTop: 30}}
+              numColumns={3}
+              style={{padding: 16}}
               />
             ): 'N/A'}
         </View>
