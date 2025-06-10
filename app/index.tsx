@@ -3,7 +3,7 @@ import { VITE_TMDB_API_KEY } from "@/config";
 import { Movie } from "@/types/movie";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, ImageBackground, Text, TextInput, View } from "react-native";
-import { useDebounce } from 'react-use';
+import { useDebounce } from 'use-debounce';
 import styles from '../style/shared';
 
 const API_KEY = VITE_TMDB_API_KEY;
@@ -22,14 +22,13 @@ export default function Index() {
   const [movieList, setMovieList] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
 
-  useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
   const fetchMovies = async(query = '') => {
     setIsLoading(true);
     try{
-      const endpoint = query ? `${API_BASE_URL}/discover/movie?query=${encodeURI(query)}` :
+      const endpoint = query ? `${API_BASE_URL}/search/movie?query=${encodeURI(query)}` :
       `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
       const response = await fetch(endpoint, API_OPTIONS);
   
@@ -55,6 +54,10 @@ export default function Index() {
   useEffect(() => {
     fetchMovies();
   }, [])
+
+  useEffect(() => {
+    fetchMovies(debouncedSearchTerm)
+  },[debouncedSearchTerm])
 
   return (
     <ImageBackground
@@ -91,10 +94,15 @@ export default function Index() {
             ): movieList ? (
               <FlatList
               data={movieList}
-              renderItem={({item}) => <Card movie={item} key={item.id}></Card>}
+              renderItem={({item, index}) => index === 19 ? (
+               <>
+                <Card movie={item}></Card>
+                <View style={{flex:1}}></View>
+               </> 
+              ): <Card movie={item}></Card>}
               keyExtractor={item => String(item.id)}
               numColumns={3}
-              style={{padding: 16}}
+              style={{padding: 20, paddingBottom: 40}}
               />
             ): 'N/A'}
         </View>

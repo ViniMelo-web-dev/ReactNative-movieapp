@@ -23,7 +23,7 @@ const Card = ({movie:{id, title, vote_average, original_language, release_date, 
         getGenre();
     }, [])
   return (
-    <View style={{flex: 1, flexDirection: 'column', gap: 3, marginBottom: 10, marginRight: 10}}>
+    <View style={{flex: 1, flexDirection: 'column', gap: 3, marginBottom: 25, marginRight: 10}}>
         <View
         style={{width: 104, height: 151}}
         >
