@@ -1,4 +1,3 @@
-import Card from "@/components/Card";
 import Spinner from "@/components/Spinner";
 import { VITE_TMDB_API_KEY } from "@/config";
 import { Movie } from "@/types/movie";
@@ -59,32 +58,34 @@ export default function Index() {
     source={require('../assets/images/hero-bg.png')}
     style={styles.background}
     >
-      <View style={{padding: 70, flex: 1}}>
-        <Image
-        source={require('../assets/images/logo.png')}
-        style={{alignSelf: 'center'}}
-        />
-        <View style={styles.input}>
+      <View style={{flex: 1}}>
+        <View style={{paddingHorizontal: 10, paddingVertical: 40}}>
           <Image
-          source={require('../assets/images/search.svg')}
-          style={{position: 'absolute', left:15}}
+          source={require('../assets/images/logo.png')}
+          style={{alignSelf: 'center'}}
           />
-          <TextInput
-          style={{color: '#A8B5DB', fontWeight: 400, fontSize: 14, paddingLeft: 40, 
-            width: '100%', height: '100%', outlineWidth: 0}}
-          onChangeText={setSearchTerm}
-          value={searchTerm}
-          placeholder="Search through 300+ movies online"
-          />
+          <View style={styles.input}>
+            <Image
+            source={require('../assets/images/search.svg')}
+            style={{position: 'absolute', left:15}}
+            />
+            <TextInput
+            style={{color: '#A8B5DB', fontWeight: 400, fontSize: 14, paddingLeft: 40, 
+              width: '100%', height: '100%', outlineWidth: 0}}
+            onChangeText={setSearchTerm}
+            value={searchTerm}
+            placeholder="Search through 300+ movies online"
+            />
+          </View>
         </View>
-        <Text style={[styles.h1, {marginTop: 30}]}>All Movies</Text>
-        <ScrollView style={{flex: 1, width: '100%', flexDirection: "row", flexWrap: 'wrap'}}>
-          {isLoading ? (
-            <Spinner></Spinner>
-          ): movieList ? movieList.map((movie) => (
-            <Card key={movie.id} movie={movie}></Card>
-          )) : 'N/A'}
-        </ScrollView>
+        <Text style={[styles.h1, {marginTop: 10, marginLeft: 30}]}>All Movies</Text>
+        <View>
+            {isLoading ? (
+              <Spinner></Spinner>
+            ): (
+              <ScrollView></ScrollView>
+            )}
+        </View>
       </View>
     </ImageBackground>
   )
