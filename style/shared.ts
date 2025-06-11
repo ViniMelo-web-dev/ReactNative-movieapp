@@ -28,9 +28,8 @@ export default StyleSheet.create({
     },
 
     buttonPressed: {
-        height: '100%', 
+        height: 60,
         width: 125, 
-        backgroundColor: 'blue', 
         borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center',
@@ -38,6 +37,10 @@ export default StyleSheet.create({
     },
 
     buttonNormal: {
-        justifyContent: 'center', alignItems: 'center', padding: 30
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        padding: 30,
+        height: 60,
+        borderRadius: 60
     }
 })
