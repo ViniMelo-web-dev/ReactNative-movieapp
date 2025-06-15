@@ -1,7 +1,8 @@
 import { fetchMovieId } from '@/fetch-movie-id';
-import { useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 
 interface movieType {
@@ -19,6 +20,7 @@ interface movieType {
 const MoviePage = () => {
   const { id }  = useLocalSearchParams() as { id: string | undefined };
   const [movie, setMovie] = useState<movieType>();
+  const navigation = useRouter();
 
 
   const formatTime = (totalMinutes: number) : string => {
@@ -29,6 +31,8 @@ const MoviePage = () => {
   }
 
   const formatDate = (prevDate: string) : string => {
+
+    if(!prevDate) return 'N/A';
     const date =  new Date(prevDate);
     
     const formatedDate = new Intl.DateTimeFormat('en-US', {
@@ -42,8 +46,8 @@ const MoviePage = () => {
     return dateFormated;
   }
 
-  const newTime = formatTime(movie?.runtime as number) as string;
-  const newDate = formatDate(movie?.release_date as string) as string;
+    const newTime = useMemo (() => formatTime(movie?.runtime as number) as string, [movie?.release_date])
+    const newDate = useMemo(() => formatDate(movie?.release_date as string) as string, [movie?.release_date])
 
   useEffect(() => {
     const getMovieById = async () => {
@@ -67,7 +71,7 @@ const MoviePage = () => {
           />
         </View>
         <View
-        style={{flex: 1, backgroundColor: '#030014', padding: 10, gap: 10}}
+        style={{flex: 1, backgroundColor: '#030014', padding: 20, gap: 10}}
         >
           <Text
           style={{color: 'white', fontWeight: 700, fontSize: 20, lineHeight: 28}}
@@ -102,6 +106,16 @@ const MoviePage = () => {
               <Text style={{color: '#D6C7FF', fontWeight: 600, fontSize: 14}}>{movie?.status ?? 'N/A'}</Text>
             </View>
           </View>
+          <TouchableOpacity
+          onPress={() => navigation.push('/')}
+          style={{width: 353, height: 36, marginTop: 40,}}>
+            <LinearGradient
+            colors={['#D6C7FF', '#AB8BFF']}
+            style={{flex: 1, borderRadius: 4, justifyContent: 'center', alignItems: 'center',  padding: 20}}
+            >
+              <Text>Visit Homepage</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
     </View>
   )
