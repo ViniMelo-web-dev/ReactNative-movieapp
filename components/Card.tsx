@@ -1,11 +1,9 @@
 import { fetchGenre } from '@/genre-fetch';
-import { Movie } from '@/types/movie';
+import { MovieCard } from '@/types/movieCard';
+import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
-type MovieCard = {
-    movie: Movie;
-};
 
 type Genre = {
     name: string;
@@ -13,7 +11,9 @@ type Genre = {
 }
 
 const Card = ({movie:{id, title, vote_average, original_language, release_date, poster_path,}}: MovieCard) => {
+    const navigation = useRouter();
     const [movieGenres, setMovieGenres] = useState<Genre[]>([]);
+
 
     useEffect(() => {
         const getGenre = async() => {
@@ -23,7 +23,9 @@ const Card = ({movie:{id, title, vote_average, original_language, release_date, 
         getGenre();
     }, [])
   return (
-    <View style={{flex: 1, flexDirection: 'column', gap: 3, marginBottom: 30, marginRight: 10}}>
+    <TouchableOpacity
+    onPress={() => navigation.push({ pathname: '/pages/MoviePage', params: { id } })}
+    style={{flex: 1, flexDirection: 'column', gap: 3, marginBottom: 30, marginRight: 10}}>
         <View
         style={{width: 104, height: 151}}
         >
@@ -72,7 +74,7 @@ const Card = ({movie:{id, title, vote_average, original_language, release_date, 
         )) : 'N/A'}
 
         </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 

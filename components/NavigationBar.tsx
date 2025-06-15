@@ -1,4 +1,4 @@
-import { Image, Pressable, View } from "react-native";
+import { Image, Pressable, View, Text } from "react-native";
 import styles from '../style/shared';
 import { useEffect, useState } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -45,12 +45,15 @@ const NavigationBar = () => {
             {activeButton === 'home' && buttonState.home ? (
                 <LinearGradient
                 colors={['#D6C7FF', '#AB8BFF']}
-                style={styles.buttonPressed}
+                style={styles.button}
                 >
-                    <Image style={{tintColor: '#151312'}} source={require('../assets/images/home.png')}/>
+                    <View style={{flexDirection: "row", gap: 10, alignItems: 'center'}}>
+                        <Image style={{tintColor: '#151312'}} source={require('../assets/images/home.png')}/>
+                        <Text>Home</Text>
+                    </View>
                 </LinearGradient>
             ): (
-                <View style={styles.buttonNormal}>
+                <View style={styles.button}>
                     <Image source={require('../assets/images/home.png')}/>
                 </View>
             )}
@@ -59,12 +62,15 @@ const NavigationBar = () => {
             {activeButton === 'search' && buttonState.search ? (
                 <LinearGradient
                 colors={['#D6C7FF', '#AB8BFF']}
-                style={styles.buttonPressed}
+                style={styles.button}
                 >
-                    <Image style={{tintColor: '#151312'}} source={require('../assets/images/searchNav.png')}/>
+                    <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+                        <Image style={{tintColor: '#151312'}} source={require('../assets/images/searchNav.png')}/>
+                        <Text>Search</Text>
+                    </View>
                 </LinearGradient>
             ): (
-                <View style={styles.buttonNormal}>
+                <View style={styles.button}>
                     <Image source={require('../assets/images/searchNav.png')}/>
                 </View>
             )}
@@ -73,12 +79,15 @@ const NavigationBar = () => {
             {activeButton === 'user' && buttonState.user ? (
             <LinearGradient
             colors={['#D6C7FF', '#AB8BFF']}
-            style={styles.buttonPressed}
+            style={styles.button}
             >
-                <Image style={{tintColor: '#151312'}} source={require('../assets/images/user.png')}/>
+                <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+                    <Image style={{tintColor: '#151312'}} source={require('../assets/images/user.png')}/>
+                    <Text>User</Text>
+                </View>
             </LinearGradient>
             ): (
-                <View style={styles.buttonNormal}>
+                <View style={styles.button}>
                     <Image source={require('../assets/images/user.png')}/>
                 </View>
             )}

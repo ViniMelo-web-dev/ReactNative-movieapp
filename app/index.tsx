@@ -7,6 +7,7 @@ import { ActivityIndicator, FlatList, Image, ImageBackground, Text, TextInput, V
 import { useDebounce } from 'use-debounce';
 import styles from '../style/shared';
 
+
 const API_KEY = VITE_TMDB_API_KEY;
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_OPTIONS = {
@@ -18,7 +19,6 @@ const API_OPTIONS = {
 };
 
 export default function Index() {
-
   const [searchTerm, setSearchTerm] = useState('');
   const [movieList, setMovieList] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);

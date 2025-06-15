@@ -27,20 +27,12 @@ export default StyleSheet.create({
         lineHeight: 28,
     },
 
-    buttonPressed: {
+    button: {
         height: 60,
-        width: 125, 
         borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 30
-    },
-
-    buttonNormal: {
-        justifyContent: 'center', 
-        alignItems: 'center', 
         padding: 30,
-        height: 60,
-        borderRadius: 60
-    }
+        width: 125
+    },
 })
