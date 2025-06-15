@@ -9,7 +9,12 @@ const API_OPTIONS = {
   }
 };
 
-const fetchMovieId = async (id: number) => {
+export const fetchMovieId = async (id : string) => {
+    
+    if (!id) {
+        throw new Error('Movie ID is required');
+    }
+
   try {
     const endpoint = `https://api.themoviedb.org/3/movie/${id}`;
     const response = await fetch(endpoint, API_OPTIONS);
@@ -24,7 +29,7 @@ const fetchMovieId = async (id: number) => {
       throw new Error('Failed to get data response');
     }
     
-    return data.id;
+    return data;
   } catch (error) {
     console.log(error);
   }
