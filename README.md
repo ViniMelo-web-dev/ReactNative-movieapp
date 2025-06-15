@@ -31,3 +31,14 @@ This project is a **mobile movie database app** that I developed based on a Figm
   Optimized and reusable UI components styled with native styles and gradients.
 
 ---
+## 🛠️ How to Run
+
+1. Clone this repository:
+  ''Bash
+  git clone https://github.com/your-username/your-repository.git
+3. Install dependecies:
+  ''Bash
+  npm install
+4. Start the development server:
+  ''Bash
+  npm run dev
